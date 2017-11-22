@@ -20,7 +20,6 @@ public class Timesheet {
 			clockInTime = new Timestamp(System.currentTimeMillis());
 			isClockedIn = true;
 		} else {
-			// throw error - already clocked in
 			throw new Error("Already clocked in");
 		}
 	}
