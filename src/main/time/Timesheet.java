@@ -9,12 +9,20 @@ public class Timesheet {
 	private HashMap<Timestamp, Timestamp> shifts;
 	private boolean isClockedIn;
 	
-	public Timesheet() throws InterruptedException {
+	/**
+	 * Constructor
+	 * @throws InterruptedException
+	 */
+	public Timesheet() {
 		clockInTime = null;
 		shifts = new HashMap<Timestamp, Timestamp>();
 		isClockedIn = false;
 	}
 	
+	/**
+	 * clockIn()
+	 * Creates new Timestamp
+	 */
 	public void clockIn() {
 		if (clockInTime == null) {
 			clockInTime = new Timestamp(System.currentTimeMillis());
@@ -24,6 +32,10 @@ public class Timesheet {
 		}
 	}
 	
+	/**
+	 * clockOut()
+	 * Creates new Timestamp and saves it along with the Timestamp from clockIn()
+	 */
 	public void clockOut() {
 		if (clockInTime == null) {
 			throw new Error("Not currently clocked in");
@@ -34,10 +46,19 @@ public class Timesheet {
 		}
 	}
 	
+	/**
+	 * getIsClockedIn()
+	 * @return isClockedIn
+	 */
 	public boolean getIsClockedIn() {
 		return isClockedIn;
 	}
 	
+	/**
+	 * getShifts()
+	 * @return shifts
+	 * 		pairs of Timestamps of shifts clocked in
+	 */
 	public HashMap<Timestamp, Timestamp> getShifts() {
 		return shifts;
 	}
