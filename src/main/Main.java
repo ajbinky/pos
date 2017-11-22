@@ -1,6 +1,6 @@
 import java.util.Scanner;
 
-public class HelloWorld {
+public class Main {
 
 	public static void main(String[] args) {
 		int menu;
