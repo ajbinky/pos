@@ -1,5 +1,10 @@
 import time.Timesheet;
 
+/**
+ * 
+ * @author AJ Behncke
+ *
+ */
 public class Employee {
 	
 	private String name;
