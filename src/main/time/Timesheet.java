@@ -5,7 +5,7 @@ import java.util.HashMap;
 
 public class Timesheet {
 	
-	private Timestamp clockInTime; // null if not clocked in, otherwise holds timestamp of when clocked in.
+	private Timestamp clockInTime;
 	private HashMap<Timestamp, Timestamp> shifts;
 	private boolean isClockedIn;
 	
