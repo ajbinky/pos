@@ -30,8 +30,6 @@ public class Main {
 					 break;
 		}
 		
-		System.out.println("lskadjf");
-		
 		in.close();
 
 	}
