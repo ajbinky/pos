@@ -3,6 +3,11 @@ package time;
 import java.sql.Timestamp;
 import java.util.HashMap;
 
+/**
+ * 
+ * @author AJ Behncke
+ *
+ */
 public class Timesheet {
 	
 	private Timestamp clockInTime;
