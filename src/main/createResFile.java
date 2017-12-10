@@ -1,11 +1,11 @@
+
 import java.io.BufferedWriter;
 import java.io.FileWriter;
-import java.io.OutputStreamWriter;
 import java.util.Scanner;
 
 public class createResFile {
 	
-public static void main(String[] args) throws Exception {
+public void reservation() throws Exception {
 	@SuppressWarnings("resource")
 	Scanner userinp = new Scanner(System.in);
 
@@ -30,9 +30,7 @@ public static void main(String[] args) throws Exception {
 	writer.write(custoData);
 	writer.newLine();
 	writer.close();
+	Main.main(null);
 }
-	
-		
-	
 	
 }
