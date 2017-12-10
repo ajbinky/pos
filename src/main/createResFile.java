@@ -1,12 +1,10 @@
 import java.io.BufferedWriter;
 import java.io.FileWriter;
-import java.io.OutputStreamWriter;
 import java.util.Scanner;
 
 public class createResFile {
 	
-public static void main(String[] args) throws Exception {
-	@SuppressWarnings("resource")
+public void reservation() throws Exception {
 	Scanner userinp = new Scanner(System.in);
 
 	String time,firstName, lastName, groupNum, custoData; 
@@ -30,9 +28,8 @@ public static void main(String[] args) throws Exception {
 	writer.write(custoData);
 	writer.newLine();
 	writer.close();
+	userinp.close();
+	Main.main(null);
 }
-	
-		
-	
 	
 }
