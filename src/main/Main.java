@@ -2,7 +2,8 @@ import java.util.Scanner;
 
 public class Main {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws Exception {
+		createResFile createResFileObject = new createResFile();
 		int menu;
 		Scanner in = new Scanner(System.in);
 		
@@ -18,11 +19,11 @@ public class Main {
 		
 		
 		switch (menu) {
-			case 1:  System.out.println("This is a placeholder! This is for Reservations");
+			case 1:  createResFileObject.reservation();
 					 break;
 			case 2:  System.out.println("This is a placeholder! This is for the Menu");
 					 break;
-			case 3:  System.out.println("This is a placeholder! This is for the Employee Sheets");
+			case 3:  ;
 					 break;
 			case 4:  System.out.println("This is a placeholder! This is for the Product list");
 					 break;
@@ -33,5 +34,7 @@ public class Main {
 		in.close();
 
 	}
+	
+
 
 }
