@@ -2,6 +2,7 @@ package menu;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -16,7 +17,7 @@ import java.util.regex.Pattern;
  */
 public class Menu {
 	
-	private HashMap<String, Double> menuItems;
+	private ArrayList<MenuItem> menuItems;
 	Pattern regexPattern;
 	Matcher regexMatcher;
 	
@@ -25,7 +26,7 @@ public class Menu {
 	 * Maybe we can use for demonstration or something
 	 */
 	public Menu() {
-		menuItems = new HashMap<String, Double>();
+		menuItems = new ArrayList<MenuItem>();
 		regexPattern = Pattern.compile("(.*) (\\d.\\d{0,2})");
 	}
 	
@@ -39,7 +40,7 @@ public class Menu {
 	 * @throws FileNotFoundException 
 	 */
 	public Menu(File menuFile) throws FileNotFoundException {
-		menuItems = new HashMap<String, Double>();
+		menuItems = new ArrayList<MenuItem>();
 		regexPattern = Pattern.compile("(.*) (\\d.\\d{0,2})");
 		readMenuFile(menuFile);
 	}
@@ -50,17 +51,15 @@ public class Menu {
 		while (s.hasNextLine()) {
 			regexMatcher = regexPattern.matcher(s.nextLine());
 			regexMatcher.matches();
-			menuItems.put(regexMatcher.group(1), Double.parseDouble(regexMatcher.group(2)));
+			menuItems.add(new MenuItem(regexMatcher.group(1), Double.parseDouble(regexMatcher.group(2))));
 		}
 		s.close();
 	}
 	
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
-		Iterator it = menuItems.entrySet().iterator();
-		while (it.hasNext()) {
-			Map.Entry pair = (Map.Entry) it.next();
-			sb.append(pair.getKey() + " - $" + pair.getValue() + "\n");
+		for (MenuItem i : menuItems) {
+			sb.append(i.getItem() + " - $" + i.getPrice() + "\n");
 		}
 		return sb.toString();
 	}

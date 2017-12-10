@@ -24,7 +24,7 @@ public class MenuTest {
 		menuFile = new File("src/test/menu/menu.txt");
 		m = new Menu(menuFile);
 		actual = m.toString();
-		expected = "that - $2.2\nthis - $1.1\nthe other - $3.3\n";
+		expected = "this - $1.1\nthat - $2.2\nthe other - $3.3\n";
 		assertEquals("Menu isn't correct", actual, expected);
 	}
 
