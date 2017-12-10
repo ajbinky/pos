@@ -6,7 +6,6 @@ import java.util.Scanner;
 public class createResFile {
 	
 public void reservation() throws Exception {
-	@SuppressWarnings("resource")
 	Scanner userinp = new Scanner(System.in);
 
 	String time,firstName, lastName, groupNum, custoData; 
@@ -30,6 +29,7 @@ public void reservation() throws Exception {
 	writer.write(custoData);
 	writer.newLine();
 	writer.close();
+	userinp.close();
 	Main.main(null);
 }
 	
