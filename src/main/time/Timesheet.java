@@ -1,22 +1,23 @@
 package time;
 
-import java.sql.Timestamp;
-import java.util.HashMap;
+import java.util.ArrayList;
 
+/**
+ * 
+ * @author AJ Behncke
+ *
+ */
 public class Timesheet {
 	
-	private Timestamp clockInTime;
-	private HashMap<Timestamp, Timestamp> shifts;
-	private boolean isClockedIn;
+	private ArrayList<Shift> shifts;
+	private Shift currentShift;
 	
 	/**
 	 * Constructor
 	 * @throws InterruptedException
 	 */
 	public Timesheet() {
-		clockInTime = null;
-		shifts = new HashMap<Timestamp, Timestamp>();
-		isClockedIn = false;
+		shifts = new ArrayList<Shift>();
 	}
 	
 	/**
@@ -24,9 +25,9 @@ public class Timesheet {
 	 * Creates new Timestamp
 	 */
 	public void clockIn() {
-		if (clockInTime == null) {
-			clockInTime = new Timestamp(System.currentTimeMillis());
-			isClockedIn = true;
+		if (currentShift == null) {
+			currentShift = new Shift(System.currentTimeMillis());
+			currentShift.setClockedIn(true);
 		} else {
 			throw new Error("Already clocked in");
 		}
@@ -34,15 +35,16 @@ public class Timesheet {
 	
 	/**
 	 * clockOut()
-	 * Creates new Timestamp and saves it along with the Timestamp from clockIn()
+	 * Sets clockOutTime in currentShift, adds currentShift to shifts, and makes currentShift null
 	 */
 	public void clockOut() {
-		if (clockInTime == null) {
+		if (currentShift == null) {
 			throw new Error("Not currently clocked in");
 		} else {
-			shifts.put(clockInTime, new Timestamp(System.currentTimeMillis()));
-			clockInTime = null;
-			isClockedIn = false;
+			currentShift.setClockOutTime(System.currentTimeMillis());
+			currentShift.setClockedIn(false);
+			shifts.add(currentShift);
+			currentShift = null;
 		}
 	}
 	
@@ -51,26 +53,26 @@ public class Timesheet {
 	 * @return isClockedIn
 	 */
 	public boolean getIsClockedIn() {
-		return isClockedIn;
+		if (currentShift == null) {
+			return false;
+		}
+		return currentShift.isClockedIn();
 	}
 	
 	/**
 	 * getShifts()
 	 * @return shifts
-	 * 		pairs of Timestamps of shifts clocked in
+	 * 		Returns list of Shifts
 	 */
-	public HashMap<Timestamp, Timestamp> getShifts() {
+	public ArrayList<Shift> getShifts() {
 		return shifts;
 	}
 	
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
-		for (Timestamp ts : shifts.keySet()) {
-			sb.append(ts.toString());
-			sb.append(" ----- ");
-			sb.append(shifts.get(ts).toString());
-			sb.append("\n");
+		for (Shift s : shifts) {
+			sb.append(s.toString() + "\n");
 		}
 		return sb.toString();
 	}
