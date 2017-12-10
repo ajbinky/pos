@@ -5,10 +5,12 @@ import java.util.Scanner;
 
 public class createResFile {
 
-	public void reservation() throws Exception {
-		Scanner userinp = new Scanner(System.in);
+	public void reservation(Scanner s) throws Exception {
+		Scanner userinp = s;
 
 		String time, firstName, lastName, groupNum, custoData;
+		
+		s.nextLine(); // clear buffer
 
 		System.out.println("Enter the time you like to reserve");
 		time = userinp.nextLine();
@@ -30,7 +32,5 @@ public class createResFile {
 		writer.write(custoData);
 		writer.newLine();
 		writer.close();
-		userinp.close();
-		Main.main(null);
 	}
 }
