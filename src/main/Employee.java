@@ -1,21 +1,10 @@
 import time.Timesheet;
 
-/**
- * 
- * @author AJ Behncke
- *
- */
 public class Employee {
 	
 	private String name;
 	private int id;
 	private Timesheet timesheet;
-	
-	public Employee(String name, int id) {
-		this.name = name;
-		this.id = id;
-		timesheet = new Timesheet();
-	}
 	
 	public String getName() {
 		return name;

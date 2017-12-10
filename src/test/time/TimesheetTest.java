@@ -1,20 +1,13 @@
 package time;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 import java.sql.Timestamp;
-import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.junit.Before;
 import org.junit.Test;
 
-/**
- * 
- * @author AJ Behncke
- *
- */
 public class TimesheetTest {
 	
 	Timesheet t;
@@ -35,16 +28,16 @@ public class TimesheetTest {
 
 	@Test
 	public void testClockInClockOut() throws InterruptedException {
-		Timestamp expectedStart = new Timestamp(System.currentTimeMillis());
+		long msStart = System.currentTimeMillis();
 		t.clockIn();
 		Thread.sleep(100);
-		Timestamp expectedEnd = new Timestamp(System.currentTimeMillis());
+		long msEnd = System.currentTimeMillis();
 		t.clockOut();
-		Shift s = t.getShifts().get(0);
-		Timestamp actualStart = s.getClockInTime();
-		Timestamp actualEnd = s.getClockOutTime();
-		assertEquals("Something is wrong with the times for clocked in", expectedStart, actualStart);
-		assertEquals("Something is wrong with the times for clocked out", expectedEnd, actualEnd);
+		HashMap<Timestamp, Timestamp> shifts = t.getShifts();
+		Timestamp ts = shifts.keySet().iterator().next();
+		Timestamp te = shifts.get(new Timestamp(msStart));
+		//System.out.println("ts: " + ts.getTime() + "\nte: " + te.getTime() + "\nmsStart: " + msStart + "\nmsEnd: " + msEnd);
+		assertEquals("Timestamps time are innacurate", msEnd-msStart, te.getTime()-ts.getTime());
 	}
 
 }
