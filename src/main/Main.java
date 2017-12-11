@@ -1,25 +1,28 @@
 import java.util.Scanner;
 
+import menu.Menu;
 import reservation.createResFile;
+import tui.Tui;
 
 public class Main {
 
 	public static void main(String[] args) throws Exception {
-		String menuString = userInterface("Reservations", "Menu/Order", "Employee Time Sheets", "Product List", "Exit");
+		String menuString = Tui.createInterface("Reservations", "Menu/Order", "Employee Time Sheets", "Product List", "Exit");
 		createResFile createResFileObject = new createResFile();
-		int menu = 0;
+		Menu menu = new Menu();
+		int userInput = 0;
 		Scanner in = new Scanner(System.in);
 		while (true) {
 			System.out.println(menuString);
 
-			menu = in.nextInt();
+			userInput = in.nextInt();
 
-			switch (menu) {
+			switch (userInput) {
 			case 1:
 				createResFileObject.reservation(in);
 				break;
 			case 2:
-				System.out.println("This is a placeholder! This is for the Menu");
+				menu.Tui(in);
 				break;
 			case 3:
 				;
@@ -36,35 +39,6 @@ public class Main {
 			}
 		}
 
-	}
-	
-	/**
-	 * 
-	 * @param args
-	 * 		Strings that you want as options in the menu
-	 * @return String
-	 * 		String built with the given arguments
-	 * 
-	 * for example
-	 * Main.userInterface("Hello world!");
-	 * would return a string that, when printed, would look like this:
-	 * ****************************
-	 * Welcome!
-	 * Please select one of the menu items using its number value
-	 * 1: Hello world!
-	 * ****************************
-	 */
-	public static String userInterface(String... args) {
-		int counter = 1;
-		StringBuilder sb = new StringBuilder();
-		sb.append("****************************\n");
-		sb.append("Welcome!\n");
-		sb.append("Please select one of the menu items using its number value\n");
-		for (String s : args) {
-			sb.append(counter++ + ": " + s + "\n");
-		}
-		sb.append("****************************\n");
-		return sb.toString();
 	}
 
 }
