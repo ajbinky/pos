@@ -4,25 +4,29 @@ import java.util.ArrayList;
 
 /**
  * 
+ * Used for keeping track of employees' shifts.
+ * 
  * @author AJ Behncke
  *
  */
 public class Timesheet {
-	
+
 	private ArrayList<Shift> shifts;
 	private Shift currentShift;
-	
+
 	/**
 	 * Constructor
-	 * @throws InterruptedException
 	 */
 	public Timesheet() {
 		shifts = new ArrayList<Shift>();
 	}
-	
+
 	/**
-	 * clockIn()
-	 * Creates new Timestamp
+	 * Creates a new shift and saves initial time
+	 * 
+	 * @throws Error
+	 *             Because I didn't want to take the time to make a new
+	 *             error/exception class
 	 */
 	public void clockIn() {
 		if (currentShift == null) {
@@ -32,10 +36,14 @@ public class Timesheet {
 			throw new Error("Already clocked in");
 		}
 	}
-	
+
 	/**
-	 * clockOut()
-	 * Sets clockOutTime in currentShift, adds currentShift to shifts, and makes currentShift null
+	 * Sets clockOutTime in currentShift, adds currentShift to shifts, and makes
+	 * currentShift null
+	 * 
+	 * @throws Error
+	 *             Because I didn't want to take the time to make a new
+	 *             error/exception class
 	 */
 	public void clockOut() {
 		if (currentShift == null) {
@@ -47,10 +55,11 @@ public class Timesheet {
 			currentShift = null;
 		}
 	}
-	
+
 	/**
-	 * getIsClockedIn()
-	 * @return isClockedIn
+	 * Returns true if there is a shift currently open.
+	 * 
+	 * @return isClockedIn self explanatory I hope
 	 */
 	public boolean getIsClockedIn() {
 		if (currentShift == null) {
@@ -58,16 +67,16 @@ public class Timesheet {
 		}
 		return currentShift.isClockedIn();
 	}
-	
+
 	/**
-	 * getShifts()
-	 * @return shifts
-	 * 		Returns list of Shifts
+	 * Returns an ArrayList of all the employee's shifts
+	 * 
+	 * @return shifts Returns list of Shifts
 	 */
 	public ArrayList<Shift> getShifts() {
 		return shifts;
 	}
-	
+
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
@@ -76,5 +85,5 @@ public class Timesheet {
 		}
 		return sb.toString();
 	}
-	
+
 }

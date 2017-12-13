@@ -1,1 +1,20 @@
-Monkey 599.99
+Wolf Cola 1.99
+Fight Milk 7.99
+Cat Food 2.99
+Alley Almonds 4.99
+Trash 0.00
+Grass 0.00
+Raccoon Meat 0.00
+Milk Steak 19.99
+Jelly Beans (raw) 3.99
+Grilled Charlie 9.99
+Energy Bar 4.99
+Pickled Eggs 9.99
+Catfish 10.99
+Crab 10.99
+Pear 0.25
+Reptile 24.99
+Sunscreen 5.99
+Block of Cheese 10.95
+Chicken Beak 8.99
+Paint 25.98

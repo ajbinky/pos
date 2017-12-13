@@ -9,10 +9,12 @@ import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import tui.Tui;
-import tui.TuiInterface;
+import util.Tui;
+import util.TuiInterface;
 
 /**
+ * 
+ * Saves a list of MenuItems.
  * 
  * @author AJ Behncke
  *
@@ -24,29 +26,45 @@ public class Menu implements TuiInterface {
 	Matcher regexMatcher;
 
 	/**
-	 * Default constructor Maybe we can use for demonstration or something
+	 * Default constructor - Maybe we can use for demonstration or something
 	 */
 	public Menu() {
 		menuItems = new ArrayList<MenuItem>();
-		regexPattern = Pattern.compile("(.*) (\\d.\\d{0,2})");
+		regexPattern = Pattern.compile("(.*) (\\d*.\\d*)");
 	}
 
 	/**
 	 * Constructor
 	 * 
 	 * @param menuFile
-	 *            File with menu items and prices, one item name and price per line,
-	 *            separated by spaces item1 price1 item2 price2 etc
+	 *            String containing path to file with menu items and prices, one
+	 *            item name and price per line, separated by spaces.
+	 *            <ul>
+	 *            <li>item1 price1</li>
+	 *            <li>item2 price2</li>
+	 *            <li>etc</li>
+	 *            </ul>
 	 * @throws FileNotFoundException
+	 *             if file isn't found I assume?
 	 */
-	public Menu(File menuFile) throws FileNotFoundException {
+	public Menu(String menuFile) throws FileNotFoundException {
 		menuItems = new ArrayList<MenuItem>();
 		regexPattern = Pattern.compile("(.*) (\\d.\\d{0,2})");
 		readMenuFile(menuFile);
 	}
 
-	// Why didn't I do string arg
-	private void readMenuFile(File f) throws FileNotFoundException {
+	/**
+	 * Reads file at given path and filename, and saves the items listed in it.
+	 * (Overwriting existing menu items)
+	 * 
+	 * @param file
+	 *            Path to and name of file to read from
+	 * @throws FileNotFoundException
+	 *             if file isn't found I assume?
+	 */
+	public void readMenuFile(String file) throws FileNotFoundException {
+		menuItems = new ArrayList<MenuItem>();
+		File f = new File(file);
 		Scanner s = new Scanner(f);
 
 		while (s.hasNextLine()) {
@@ -61,8 +79,9 @@ public class Menu implements TuiInterface {
 	 * Saves file with current menu. Formatted the same as the way it is read.
 	 * 
 	 * @param file
-	 *            String of the file path and name to be saved to
+	 *            The file path and name to be saved to
 	 * @throws FileNotFoundException
+	 *             if file isn't found I assume?
 	 */
 	public void saveMenuFile(String file) throws FileNotFoundException {
 		try (PrintWriter pw = new PrintWriter(file)) {
@@ -89,10 +108,11 @@ public class Menu implements TuiInterface {
 	 * 
 	 * @param itemName
 	 *            Name of item(s) to remove
+	 * @return Number of items removed
 	 */
 	public int removeMenuItem(String itemName) {
 		int removed = 0;
-		
+
 		for (Iterator<MenuItem> it = menuItems.iterator(); it.hasNext();) {
 			MenuItem item = it.next();
 			if (item.getItem().equals(itemName)) {
@@ -100,17 +120,13 @@ public class Menu implements TuiInterface {
 				removed++;
 			}
 		}
-		
+
 		/*
-		for (MenuItem item : menuItems) {
-			if (item.getItem().equals(itemName)) {
-				menuItems.remove(item);
-				removed++;
-			}
-		}
-		Exception in thread "main" java.util.ConcurrentModificationException
-		RIP
-		*/
+		 * for (MenuItem item : menuItems) { if (item.getItem().equals(itemName)) {
+		 * menuItems.remove(item); removed++; } } Exception in thread "main"
+		 * java.util.ConcurrentModificationException RIP:
+		 * ConcurrentModificationException
+		 */
 		return removed;
 	}
 
@@ -121,10 +137,11 @@ public class Menu implements TuiInterface {
 	 *            Name of item(s) to remove
 	 * @param price
 	 *            Price of item(s) to remove
+	 * @return Number of items removed
 	 */
 	public int removeMenuItem(String itemName, double price) {
 		int removed = 0;
-		
+
 		for (Iterator<MenuItem> it = menuItems.iterator(); it.hasNext();) {
 			MenuItem item = it.next();
 			if (item.getItem().equals(itemName) && item.getPrice() == price) {
@@ -132,20 +149,37 @@ public class Menu implements TuiInterface {
 				removed++;
 			}
 		}
-		
-		/*
-		for (MenuItem item : menuItems) {
-			if (item.getItem().equals(itemName) && item.getPrice() == price) {
-				menuItems.remove(item);
-				removed++;
-			}
-		}
-		Exception in thread "main" java.util.ConcurrentModificationException
-		RIP
-		*/
+
 		return removed;
+
+		/*
+		 * for (MenuItem item : menuItems) { if (item.getItem().equals(itemName) &&
+		 * item.getPrice() == price) { menuItems.remove(item); removed++; } } Exception
+		 * in thread "main" java.util.ConcurrentModificationException RIP:
+		 * ConcurrentModificationException
+		 */
 	}
 
+	public MenuItem getMenuItem(String name) {
+		MenuItem item = null;
+		for (MenuItem i : menuItems) {
+			if (i.getItem().equals(name)) {
+				item = i;
+			}
+		}
+		return item;
+	}
+
+	/**
+	 * Getter
+	 * 
+	 * @return all menu items
+	 */
+	public ArrayList<MenuItem> getMenuItems() {
+		return menuItems;
+	}
+
+	@Override
 	public void Tui(Scanner s) {
 		String userInterface = Tui.createInterface("View all items", "Add item to menu", "Remove item from menu",
 				"Save menu to file", "Rescan menu file", "Return to main menu");
@@ -207,7 +241,7 @@ public class Menu implements TuiInterface {
 				System.out.print("Enter file name: ");
 				String fileName = s.nextLine();
 				try {
-					readMenuFile(new File(fileName));
+					readMenuFile(fileName);
 				} catch (FileNotFoundException e) {
 					e.printStackTrace();
 				}
@@ -220,7 +254,7 @@ public class Menu implements TuiInterface {
 			}
 			default: {
 				s.nextLine(); // flush
-				System.out.println("We're sorry. We don't recognize that value");
+				System.out.println("We're sorry. We don't recognize that value.");
 				break;
 			}
 			}

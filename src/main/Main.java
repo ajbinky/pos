@@ -1,17 +1,26 @@
 import java.util.Scanner;
 
+import employee.Employees;
 import menu.Menu;
+import menu.Order;
 import reservation.createResFile;
-import tui.Tui;
+import util.Tui;
 
 public class Main {
 
 	public static void main(String[] args) throws Exception {
-		String menuString = Tui.createInterface("Reservations", "Menu/Order", "Employee Time Sheets", "Product List", "Exit");
+
+		String menuString = Tui.createInterface("Create new order", "Reservations", "Menu/Products", "Employees",
+				"Quick Clock in/out", "Exit");
 		createResFile createResFileObject = new createResFile();
 		Menu menu = new Menu();
+		Employees employees = new Employees();
 		int userInput = 0;
 		Scanner in = new Scanner(System.in);
+
+		// Program arguments for importing menu and employee?
+		// <coding> <falalalalalala> <coding/> @author Nicole Axtell
+
 		while (true) {
 			System.out.println(menuString);
 
@@ -19,18 +28,23 @@ public class Main {
 
 			switch (userInput) {
 			case 1:
+				new Order(menu).Tui(in);
+			case 2:
 				createResFileObject.reservation(in);
 				break;
-			case 2:
+			case 3:
 				menu.Tui(in);
 				break;
-			case 3:
-				;
-				break;
 			case 4:
-				System.out.println("This is a placeholder! This is for the Product list");
+				employees.Tui(in);
 				break;
 			case 5:
+				System.out.print("Enter ID: ");
+				int id = in.nextInt();
+				String s = employees.QuickClockInOut(id);
+				System.out.println(s);
+				break;
+			case 6:
 				in.close();
 				System.exit(0);
 			default:

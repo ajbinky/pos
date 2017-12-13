@@ -10,7 +10,7 @@ public class createResFile {
 		Scanner userinp = s;
 
 		String time, firstName, lastName, groupNum, custoData;
-		
+
 		s.nextLine(); // clear buffer
 
 		System.out.println("Enter the time you like to reserve");

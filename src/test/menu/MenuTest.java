@@ -22,7 +22,7 @@ public class MenuTest {
 	public void testMenuCreation() throws FileNotFoundException {
 		String expected, actual;
 		menuFile = new File("src/test/menu/menu.txt");
-		m = new Menu(menuFile);
+		m = new Menu("menu.txt");
 		actual = m.toString();
 		expected = "this - $1.1\nthat - $2.2\nthe other - $3.3\n";
 		assertEquals("Menu isn't correct", actual, expected);
